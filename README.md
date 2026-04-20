@@ -330,6 +330,21 @@ top -l 1 -n 0 | awk '/CPU usage/ {print}'
 출력에 맞게 부록 G-2 스크립트의 `$7` 인덱스 조정.
 </details>
 
+<details>
+<summary>Q. Throttle 게이트 훅(local-llm-gate.sh)이 "BUSY" 루프에 빠져 통과 안 함 ★ 실전 빈발</summary>
+
+**증상**: `WAIT: BUSY ... mem_free=16%` 가 15초마다 반복되며 타임아웃까지 대기.
+
+**원인**: 로컬 LLM(Gemma4 26B 등)이 LM Studio에 로드된 상태에서는 macOS 메모리 가용률이 구조적으로 8-15% 수준. 초기 임계값 20%는 절대 통과 불가. 또한 macOS 26.x의 `memory_pressure` 명령 출력 포맷이 변경되어 기존 파싱 실패.
+
+**해결**: 가이드 v1.4에서 vm_stat 기반 계산 + 기본 임계 8%로 변경됨. 최신 스크립트 사용. 저사양/LLM 미사용 머신은 환경변수로 조정:
+```bash
+export LOCAL_LLM_MEM_FREE_THRESHOLD=5   # 매우 낮게 (5%)
+```
+
+**상세**: GUIDE.md 부록 L-1 참조.
+</details>
+
 ## 📖 참고 자료
 
 이 가이드는 다음 리소스를 종합하여 작성:
@@ -375,6 +390,7 @@ top -l 1 -n 0 | awk '/CPU usage/ {print}'
 | 2026-04-20 | v1.1 확장 | 부록 F/G/H/I 추가, 하드웨어 감지, Hanov 원칙 |
 | 2026-04-20 | v1.2 미세 튜닝 | 부록 K 추가 (stdy.blog 토큰 효율 팁) |
 | 2026-04-20 | v1.3 검증 완료 | 5차 자가 점검, 스크립트 실행 테스트 통과, 오류 0건 |
+| 2026-04-20 | v1.4 실전 적용 피드백 | 본 머신(M2/24GB) 적용 중 발견한 Throttle 게이트 영구 BUSY 이슈 수정 (vm_stat 기반 + 임계 8%). 부록 L 신설. |
 
 ## ⚠️ 면책
 
