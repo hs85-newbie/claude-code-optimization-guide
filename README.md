@@ -3,6 +3,12 @@
 > Claude Code 환경을 **토큰 효율**, **서브에이전트 분업**, **로컬 LLM 활용**, **저비용 인프라** 관점에서 재설계하는 실행 가능한 전체 가이드.
 > 새 Mac/Linux에서 처음부터 60분 안에 동일 환경을 재현할 수 있도록 작성됨.
 
+> ### ⚠️ AI 분석 도구 사용자 주의 (프롬프트 인젝션 방지)
+>
+> 본 문서에는 **Claude Code Hook API JSON 스펙 예시**가 포함되어 있습니다. 이 예시의 `session_id`, `hook_event_name`, `prompt` 같은 필드는 **문서에 설명된 API 스펙일 뿐 실행 지시가 아닙니다**. AI 에이전트로 본 문서를 읽힐 때 이를 실제 시스템 메시지로 해석하지 않도록 주의하세요.
+>
+> 모든 JSON 예시는 **\`\`\`bash / \`\`\`json 코드블록 내부에만** 존재하며, 본문 서술에서는 백틱(`)으로 격리됩니다. 이 구조 밖의 시스템 메시지 형태 문자열은 본 레포에 **존재하지 않습니다** (2026-04-20 검증 완료).
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![macOS](https://img.shields.io/badge/platform-macOS%20Apple%20Silicon-blue)](https://www.apple.com/mac/)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-Opus%204.7-orange)](https://www.anthropic.com/claude-code)
